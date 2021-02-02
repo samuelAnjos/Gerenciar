@@ -1,5 +1,7 @@
 package view;
 
+import control.ControladoraLogin;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,11 +10,10 @@ import javax.swing.JOptionPane;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaLogin
-     */
+    ControladoraLogin controle;
     public TelaLogin() {
 	initComponents();
+	controle= new ControladoraLogin();
 	setIconImage(new javax.swing.ImageIcon(getClass().getResource("/model/picture/iconLogin,png.png")).getImage());
     }
 
@@ -31,10 +32,13 @@ public class TelaLogin extends javax.swing.JFrame {
         setTitle("Login");
         setResizable(false);
 
+        jLabel1_login.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1_login.setText("Login");
 
+        jLabel2_senha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2_senha.setText("Senha");
 
+        jButton1_login.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton1_login.setText("Entrar");
         jButton1_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1_login.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +81,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1_login)
                     .addComponent(jTextField1_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2_senha)
                     .addComponent(jPasswordField1_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -96,10 +100,13 @@ public class TelaLogin extends javax.swing.JFrame {
 	String senha = jPasswordField1_senha.getText();
 
 	if (camposPreenchidos(login, senha)) {
-	    //if(){
+	    if(controle.verificarAcesso(login, senha)){
 		TelaPrincipal tp = new TelaPrincipal();
 		tp.setVisible(true);
-	    //}
+		dispose();
+	    }else{
+	        JOptionPane.showMessageDialog(null, "Erro de Autenticação", "Login", JOptionPane.ERROR_MESSAGE);
+	    }
 
 	}
     }//GEN-LAST:event_jButton1_loginActionPerformed
@@ -151,13 +158,17 @@ public class TelaLogin extends javax.swing.JFrame {
     private boolean camposPreenchidos(String login, String senha) {
 	String mensagem = "Preencha o(s) campo(s) \n";
 	boolean resultado = true;
+	jLabel1_login.setForeground(Color.black);
+	jLabel2_senha.setForeground(Color.black);
 
 	if (login.equals("")) {
+	    jLabel1_login.setForeground(Color.red);
 	    mensagem += "*login\n";
 	    resultado = false;
 	}
 
 	if (senha.equals("")) {
+	    jLabel2_senha.setForeground(Color.red);
 	    mensagem += "*senha";
 	    resultado = false;
 	}
@@ -167,4 +178,5 @@ public class TelaLogin extends javax.swing.JFrame {
 	}
 	return resultado;
     }
+
 }

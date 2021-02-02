@@ -6,7 +6,7 @@ import java.sql.DriverManager;
  *
  * @author samuel
  */
-public class controladora {
+public class controladoraL {
 
     private final String driver = "com.mysql.jdbc.Driver";
     private final String url = "jdbc:mysql://localhost:3306/assis";
@@ -15,7 +15,7 @@ public class controladora {
 
     private java.sql.Connection conexao = null;
 
-    public controladora() {
+    public controladoraL() {
 	try {
 	    Class.forName(driver);
 	} catch (Exception e) {
@@ -44,5 +44,6 @@ public class controladora {
 	}
 	conexao=null;
     }
+
 
 }
